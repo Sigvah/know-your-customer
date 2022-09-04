@@ -8,19 +8,17 @@ import { PersonInfo } from "./PersonInfo";
 
 const PageWrapper = styled.div`
   text-align: center;
-`;
-const StyledInput = styled.input`
-  height: 6em;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 `;
 
 const App = () => {
   const [hits, setHits] = useState();
-  const numberOfHits = hits.numberOfHits;
   const inputRef = useRef();
   function handleClick() {
     GetPep(inputRef.current.value).then((foundHits) => {
       setHits(foundHits);
-      console.log(hits);
     });
   }
   return (
@@ -37,15 +35,19 @@ const App = () => {
       </Button>
 
       {hits ? (
-        numberOfHits < 1 ? (
+        hits.numberOfHits < 1 ? (
           <h1>Ingen personer funnet!</h1>
         ) : (
-          <h1>Vi fant {numberOfHits} person(er)</h1>
+          <h1>Vi fant {hits.numberOfHits} person(er)</h1>
         )
       ) : (
         <div />
-        )}
-        <PersonInfo hits/>
+      )}
+      {hits &&
+        hits.numberOfHits > 0 &&
+        hits.hits.map((thisPerson, index) => {
+          return <PersonInfo key={index} person={thisPerson} />;
+        })}
     </PageWrapper>
   );
 };
