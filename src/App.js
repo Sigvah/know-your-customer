@@ -25,7 +25,7 @@ const App = () => {
     <PageWrapper>
       <TextField
         id="standard-basic"
-        label="Søk etter person"
+        label="Søk etter politisk eksponert person"
         variant="standard"
         name="kycRef"
         inputRef={inputRef}
@@ -36,9 +36,9 @@ const App = () => {
 
       {hits ? (
         hits.numberOfHits < 1 ? (
-          <h1>Ingen personer funnet!</h1>
+          <h1>Ingen politisk eksponert person funnet!</h1>
         ) : (
-          <h1>Vi fant {hits.numberOfHits} person(er)</h1>
+          <h1>Vi fant {hits.numberOfHits} politisk eksponerte person(er)</h1>
         )
       ) : (
         <div />

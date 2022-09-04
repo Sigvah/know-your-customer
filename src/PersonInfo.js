@@ -17,6 +17,9 @@ export const PersonInfo = (person) => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {thisPerson.dataset}
+        <Typography variant="body2" color="text.secondary">
+          id: {thisPerson.id}
+        </Typography>
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Sanksjoner: {thisPerson.sanctions}
@@ -34,7 +37,7 @@ export const PersonInfo = (person) => {
           Mobil: {thisPerson.phones}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          sist og først sett: {thisPerson.first_seen} - {thisPerson.last_seen}
+          sist-først sett: {thisPerson.first_seen} - {thisPerson.last_seen}
         </Typography>
       </CardContent>
     </StyledCard>
