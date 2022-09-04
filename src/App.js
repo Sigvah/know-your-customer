@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { TextField, Button } from "@material-ui/core";
+import styled from "styled-components";
+import { useState, useRef } from "react";
+import SearchIcon from "@material-ui/icons/Search";
+import { GetPep } from "./api/axios";
+import { PersonInfo } from "./PersonInfo";
 
-function App() {
+const PageWrapper = styled.div`
+  text-align: center;
+`;
+const StyledInput = styled.input`
+  height: 6em;
+`;
+
+const App = () => {
+  const [hits, setHits] = useState();
+  const numberOfHits = hits.numberOfHits;
+  const inputRef = useRef();
+  function handleClick() {
+    GetPep(inputRef.current.value).then((foundHits) => {
+      setHits(foundHits);
+      console.log(hits);
+    });
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PageWrapper>
+      <TextField
+        id="standard-basic"
+        label="Søk etter person"
+        variant="standard"
+        name="kycRef"
+        inputRef={inputRef}
+      />
+      <Button variant="contained" onClick={handleClick}>
+        <SearchIcon />
+      </Button>
+
+      {hits ? (
+        numberOfHits < 1 ? (
+          <h1>Ingen personer funnet!</h1>
+        ) : (
+          <h1>Vi fant {numberOfHits} person(er)</h1>
+        )
+      ) : (
+        <div />
+        )}
+        <PersonInfo hits/>
+    </PageWrapper>
   );
-}
+};
 
 export default App;
